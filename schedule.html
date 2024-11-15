@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Schedule</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Bus Schedule</h1>
+    </header>
+    <section>
+        <h2>View Available Bus Schedules</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Route</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Available Seats</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example data, replace with dynamic content -->
+                <tr>
+                    <td><button onclick="selectSchedule('City A to City B', '2024-11-20', '10:00 AM')">Select</button></td>
+                    <td>City A to City B</td>
+                    <td>2024-11-20</td>
+                    <td>10:00 AM</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td><button onclick="selectSchedule('City C to City D', '2024-11-21', '2:00 PM')">Select</button></td>
+                    <td>City C to City D</td>
+                    <td>2024-11-21</td>
+                    <td>2:00 PM</td>
+                    <td>15</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Navigation Options -->
+    <nav>
+        <button onclick="goToMyBookings()">My Bookings</button>
+        <button onclick="goBack()">Back</button>
+    </nav>
+
+    <script>
+        // Function to store selected schedule in local storage
+        function selectSchedule(route, date, time) {
+            // Create an object for the selected schedule
+            const selectedSchedule = { route, date, time, status: 'Pending' };
+            // Retrieve existing bookings from local storage or initialize an empty array
+            let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            // Add the new booking to the array
+            bookings.push(selectedSchedule);
+            // Save the updated bookings array back to local storage
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+            alert('Schedule selected and added to My Bookings!');
+        }
+
+        // Function to redirect to My Bookings page
+        function goToMyBookings() {
+            window.location.href = 'bookings.html'; // Redirect to My Bookings page
+        }
+
+        // Function to go back to the previous page
+        function goBack() {
+            window.history.back(); // Go back to the previous page
+        }
+    </script>
+</body>
+</html>
