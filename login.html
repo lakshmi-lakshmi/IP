@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bus Ticket Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Login to Your Account</h1>
+    </header>
+    <section>
+        <form id="loginForm" action="#">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </section>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the login values entered by the user
+            const loginUsername = document.getElementById('username').value;
+            const loginPassword = document.getElementById('password').value;
+
+            // Retrieve the stored registration credentials from localStorage
+            const registeredUsername = localStorage.getItem('registeredUsername');
+            const registeredPassword = localStorage.getItem('registeredPassword');
+
+            // Check if the login credentials match the stored ones
+            if (loginUsername === registeredUsername && loginPassword === registeredPassword) {
+                alert('Login successful! Redirecting to the bus schedule...');
+                window.location.href = 'schedule.html'; // Redirect to schedule page
+            } else {
+                alert('Login credentials do not match the registered account.');
+            }
+        });
+    </script>
+</body>
+</html>
