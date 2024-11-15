@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>My Bookings</h1>
+    </header>
+    <section>
+        <h2>Review Your Booked Tickets</h2>
+        <div class="booking-list">
+            <!-- Example booking, replace with dynamic content -->
+            <div class="booking-item">
+                <p>Route: City A to City B</p>
+                <p>Date: 2024-11-20</p>
+                <p>Time: 10:00 AM</p>
+                <p>Status: Confirmed</p>
+                <button onclick="cancelBooking(this)">Cancel Booking</button> <!-- Pass the button element -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Function to handle the cancel booking action
+        function cancelBooking(button) {
+            // Confirm with the user before canceling
+            const confirmCancel = confirm('Are you sure you want to cancel this booking?');
+            if (confirmCancel) {
+                // Remove the booking item from the DOM
+                const bookingItem = button.parentElement; // Get the parent element (booking-item)
+                bookingItem.remove(); // Remove the booking item from the DOM
+                alert('Booking cancelled'); // Display alert message
+            }
+        }
+    </script>
+</body>
+</html>
