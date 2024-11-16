@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>My Bookings</h1>
+    </header>
+    <section>
+        <h2>Review Your Booked Tickets</h2>
+        <div class="booking-list" id="bookingList">
+            <!-- Dynamic content will be injected here -->
+        </div>
+    </section>
+
+    <script>
+        // Function to load bookings from local storage and display them
+        function loadBookings() {
+            // Retrieve bookings from local storage
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+            // Get the booking list container
+            const bookingList = document.getElementById('bookingList');
+            bookingList.innerHTML = ''; // Clear any existing content
+
+            // Check if there are any bookings
+            if (bookings.length === 0) {
+                bookingList.innerHTML = '<p>No bookings found.</p>';
+                return;
+            }
+
+            // Loop through each booking and create HTML elements
+            bookings.forEach((booking, index) => {
+                const bookingItem = document.createElement('div');
+                bookingItem.classList.add('booking-item');
+                bookingItem.innerHTML = `
+                    <p>Route: ${booking.route}</p>
+                    <p>Date: ${booking.date}</p>
+                    <p>Time: ${booking.time}</p>
+                    <p>Status: ${booking.status}</p>
+                    <button onclick="cancelBooking(${index})">Cancel Booking</button>
+                `;
+                bookingList.appendChild(bookingItem);
+            });
+        }
+
+        // Function to handle the cancel booking action
+        function cancelBooking(index) {
+            // Confirm with the user before canceling
+            const confirmCancel = confirm('Are you sure you want to cancel this booking?');
+            if (confirmCancel) {
+                // Retrieve bookings from local storage
+                let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+                // Remove the selected booking
+                bookings.splice(index, 1);
+                // Update the bookings in local storage
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                // Reload the bookings
+                loadBookings();
+                alert('Booking cancelled');
+            }
+        }
+
+        // Load bookings when the page loads
+        window.onload = loadBookings;
+    </script>
+</body>
+</html>
